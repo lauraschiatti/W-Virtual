@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+ <html> 
+  <head>
+    <base href="http://localhost/project/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Salas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap -->
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">     
+    <link href="libs/jquery/jquery-ui.css" rel="stylesheet">
+    <link href="libs/timepicker/lib/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="libs/timepicker/jquery.timepicker.css" rel="stylesheet">
+    <link href="libs/bootstrap/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">  
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="web/index.php/usuarios/inicioadmin">W-Virtual</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">             
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Conectado <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="web/index.php"><i class="fa fa-power-off"></i>   Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>  
+
+    <p></br></p>
+
+    <div class="container" id="texto">
+      <div class="row">
+        <div class="col-md-3">
+          <ul class="nav nav-pills nav-stacked admin-menu">
+              <li class="input-md"><a href="web/index.php/usuarios/inicioadmin" data-target-id="home"><i class="fa fa-home fa-fw"></i>Home</a></li>
+              <li class="input-md active"><a href="web/index.php/salas" data-target-id="table"><i class="fa fa-table fa-fw"></i>Administrar salas</a></li>
+              <li class="input-md"><a href="web/index.php/equipos" data-target-id="table"><i class="fa fa-table fa-fw"></i>Administrar equipos</a></li>
+              <li class="input-md"><a href="web/index.php/usuarios" data-target-id="table"><i class="fa fa-table fa-fw"></i>Ver usuarios</a></li>
+              <li class="input-md"><a href="web/index.php/reservas" data-target-id="table"><i class="fa fa-table fa-fw"></i>Ver reservas</a></li> 
+          </ul>
+        </div>
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-4 well" id="home">
+            <form form role="form" data-bind="submit: view.submit">
+              <h3> Salas </h3>
+            
+              <hr class="colorgraph">
+              
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <label for="exampleInputEmail1">Nombre</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre" data-bind="value: model.nombre" required> 
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                 <label for="exampleInputEmail1">Capacidad</label>
+                   <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Capacidad" data-bind="value: model.capacidad" required>
+                </div>
+              </div>
+              
+              <p></br></p>  
+              <hr class="colorgraph">
+              
+              <div class="row">
+                <center>
+                  <button type="submit" class="btn btn-success btn-block btn-sm centrar">
+                    <h4>Agregar</h4>
+                  </button>
+                </center>
+              </div>
+            </form> 
+        </div>
+
+
+         <div class="col-md-12 admin-content" id="widgets">
+           <p><br/></br></br></p>
+            <div class="row">
+              <div class="col-md-12"></div>
+                <div class="col-md-12">
+                  <div class="panel panel-default">  
+                      <table  id="mytable" class="table table-bordred table-striped">
+                        <thead>
+                          <tr>
+                            <th>Nombre</th><th>Capacidad</th>
+                          </tr>
+                        </thead>
+                        <tbody data-bind="foreach: view.tabla">
+                          <tr>
+                            <td data-bind="text: $data.nombre"></td>
+                            <td data-bind="text: $data.capacidad"></td>
+                            <!-- <td><p><button class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td> -->
+                            <td><p><button class="btn btn-danger btn-sm" data-title="Delete" data-placement="top" rel="tooltip" data-bind="click: $root.view.abrirModalEliminar"><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                          </tr>                      
+                        </tbody>
+                      </table> 
+
+                      <!-- modal edit -->
+                      <!-- <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                              <h3 class="modal-title custom_align" id="Heading">Actualizar sala</h3>
+                            </div>
+                              <div class="modal-body">
+                               <label for="exampleInputEmail1">Capacidad</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Capacidad" data-bind="value: model.capacidad">                 
+                              </div>
+                              <div class="modal-footer ">
+                                <button type="button" class="btn btn-success btn-lg" style="width: 30%;"><span class="glyphicon glyphicon-ok-sign"></span> Actualizar</button>
+                              </div>
+                            </div> -->
+                          <!-- /.modal-content --> 
+                        <!-- </div> -->
+                            <!-- /.modal-dialog --> 
+                      <!-- </div> -->
+                  
+                      <!-- modal delete -->                                        
+                      <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                              <h3 class="modal-title custom_align" id="Heading">Eliminar sala</h3>
+                            </div>
+                            <div class="modal-body">                             
+                             <div class="alert alert-warning"><i class="fa fa-exclamation-triangle"></i>¿Seguro de eliminar la sala?</div>                             
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-info btn-md" style="width: 32%;" data-bind=" click: $root.view.eliminar"><span class="glyphicon glyphicon-ok-sign"></span></button>
+                              <button type="button" class="btn btn-primary btn-md" style="width: 32%;" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content --> 
+                       </div>
+                        <!-- /.modal-dialog --> 
+                    </div>
+                        
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>         
+    </div>  
+   
+    <script src="libs/jquery/jquery-1.11.1.min.js"></script>
+    <script src="libs/knockout/knockout-3.2.0.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/bootstrapgrowl/bootstrap-growl.min.js"></script> 
+    <script src="js/main.js"></script> 
+
+    <script type="text/javascript">
+      var viewModel={
+        view:{
+          salaEliminar: null,
+          abrirModalEliminar: function(sala){
+            viewModel.view.salaEliminar = sala;
+            $('#delete').modal({show: true, keyboard: false});
+          },
+          submit: function(){
+            var sala = ko.toJS(viewModel.model);
+            $.ajax({
+              url: "web/index.php/api/salas",
+              type: "POST",
+              data: sala,
+              success: function(data){
+                getSalas();
+                $.growl('La sala se creo correctamente', {
+                  type: 'success',
+                  mouse_over: 'pause'
+                });
+              },
+              error: function(){
+                $.growl('<strong>ERROR:</strong> No se pudo guardar la sala', {
+                  type: 'danger'
+                });
+              }
+            });
+          },
+
+          eliminar:function(){
+            var sala = viewModel.view.salaEliminar;
+            console.log(sala);
+            $.ajax({
+              url: "web/index.php/api/salas/" + sala.id,
+              type: "DELETE",
+              success: function(data){
+                getSalas();
+                $('#delete').modal('hide');
+                $.growl('La sala se elimino correctamente', {
+                  type: 'success',
+                  mouse_over: 'pause'
+                });
+              },
+              error: function(){
+                $.growl('<strong>ERROR:</strong> No se pudo eliminar la sala', {
+                  type: 'danger'
+                });
+              }
+            });
+          },
+          tabla: ko.observableArray()
+        },
+        model:{
+          nombre:ko.observable(),
+          capacidad:ko.observable()
+        }
+      };
+
+      var getSalas = function(){
+        $.ajax({
+          url: "web/index.php/api/salas",
+          type: "GET",
+          success: function(data){
+            viewModel.view.tabla(data);
+          }
+        });
+      };
+
+      ko.applyBindings(viewModel);
+
+      getSalas();
+    </script>  
+  </body>
+</html>

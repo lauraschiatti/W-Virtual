@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+ <html> 
+  <head>
+    <base href="http://localhost/project/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Reservar salas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap -->
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">     
+    <link href="libs/jquery/jquery-ui.css" rel="stylesheet">
+    <link href="libs/timepicker/lib/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="libs/timepicker/jquery.timepicker.css" rel="stylesheet">
+    <link href="libs/bootstrap/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">  
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="web/index.php/usuarios/inicio">W-Virtual</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">             
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Conectado <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="web/index.php"><i class="fa fa-power-off"></i>   Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>  
+
+    <p></br></p>
+
+    <div class="container" id="texto">
+      <div class="row">
+        <div class="col-md-3">
+          <ul class="nav nav-pills nav-stacked admin-menu">
+              <li class="input-md"><a href="web/index.php/usuarios/inicio" data-target-id="home"><i class="fa fa-home fa-fw"></i>Home</a></li>
+              <li class="input-md active"><a href="web/index.php/salas/reserva" data-target-id="table"><i class="fa fa-table fa-fw"></i>Reservar sala</a></li>
+              <li class="input-md"><a href="web/index.php/equipos/reserva" data-target-id="calender"><i class="fa fa-calendar fa-fw"></i>Reservar equipo</a></li>
+              <li class="input-md"><a href="web/index.php/misreservas" data-target-id="library"><i class="fa fa-book fa-fw"></i>Mis reservas</a></li>
+          </ul>
+        </div>
+        
+           
+        <div class="col-md-1"></div>
+
+        <div class="col-md-4 well" id="home">
+            <form form role="form" data-bind="submit: view.submit">
+              <h3> Reservar sala </h3>
+            
+              <hr class="colorgraph">
+              
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                <label for="exampleInputEmail1">Seleccione una sala</label>
+                  <select data-bind="options: view.salas,
+                       optionsText: 'nombre',
+                       optionsValue: 'nombre',
+                       value: model.nombre,
+                       optionsCaption: 'Seleccione...'" class="form-control">
+                  </select>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                 <label for="exampleInputEmail1">Seleccione una fecha</label>
+                  <input type="text" class="form-control" id="datepicker" data-bind="datePicker: model.fecha, dateOptions: { format: 'yyyy-mm-dd', weekStart: 1 }"> 
+                </div>
+              </div>
+              
+              <p></br></p>     
+  
+              <center>
+                <div class="row boton">                
+                  <label for="exampleInputEmail1">Seleccione una hora</label>
+                  <input autocomplete="off" id="basicExample" class="time ui-timepicker-input form-control" type="text" data-bind="value: model.hora">
+              </div>
+              </center>
+
+              <hr class="colorgraph">
+              
+              <div class="row">
+                <center>
+                  <button type="submit" class="btn btn-success btn-block btn-sm centrar">
+                    <h4>Reservar</h4>
+                  </button>
+                </center>
+              </div>
+            </form>       
+        </div>
+        
+        <div class="col-md-1"></div>
+
+        <div class="col-md-1">
+          <p></br></br></br/><br/><br/></p>
+            <img src="img/images.png" >
+        </div>
+        
+    </div>  
+   
+    <script src="libs/jquery/jquery-1.11.1.min.js"></script>
+    <script src="libs/knockout/knockout-3.2.0.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/bootstrapgrowl/bootstrap-growl.min.js"></script>
+    <script src="libs/jquery/jquery-ui.js"></script>
+    <script src="libs/timepicker/jquery.timepicker.min.js"></script>
+    <script src="libs/timepicker/lib/bootstrap-datepicker.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        $("#datepicker").datepicker();
+      }); 
+
+      $(function(){ 
+        $('#basicExample').timepicker({'timeFormat':'H:i:s', 'timeFormat':'H:i:s','minTime' : '07:00:00', 'maxTime':'17:00:00', 'step' : '60' });  
+      }); 
+
+      var viewModel={
+          view:{
+            salas: ko.observableArray([]),
+            submit: function(){
+                var sala = ko.toJS(viewModel.model);
+                $.ajax({
+                  url: "web/index.php/api/salas/reserva",
+                  type: "POST",
+                  data: sala,
+                  success: function(data){
+                    $.growl('Reserva creada correctamente. '+ ' Numero de reserva: '+ data.id, {
+                      type: 'success',
+                      mouse_over: 'pause',
+                      timer: 10000
+                    });
+                  },
+                  error: function(){
+                    $.growl('<strong>ERROR:</strong> No se pudo guardar la reserva', {
+                      type: 'danger',
+                      mouse_over: 'pause',
+                      timer: 5000
+                    });
+                  }
+                });
+            }
+          },
+          model:{
+            nombre:ko.observable(),
+            fecha:ko.observable(),
+            hora:ko.observable()
+          }
+      };
+
+      var getSalas = function(){
+        $.ajax({
+          url: "web/index.php/api/salas",
+          type: "GET",
+          success: function(data){
+            viewModel.view.salas(data);
+          }
+        });
+      };
+
+
+      ko.applyBindings(viewModel);
+
+      getSalas();
+    </script>  
+  </body>
+</html>

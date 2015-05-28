@@ -1,0 +1,82 @@
+ <!DOCTYPE html>
+ <html> 
+  <head>
+    <base href="http://localhost/project/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Contactenos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap -->
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">   
+
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" href="web/index.php">W-Virtual</a>
+        </div>        
+        </div>
+      </div>  
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+          <form form role="form" data-bind="submit: view.submit">
+            <fieldset>
+              <h3>Contáctenos</h3>              
+             
+              <hr class="colorgraph">             
+              
+              <textarea type="text" class="form-control counted" data-bind="value: model.mensaje" placeholder="Mensaje..." rows="5" style="margin-bottom:10px;"></textarea>
+              <h6 class="pull-right" id="counter">320 characters remaining</h6>
+              <button class="btn btn-success" type="submit">Enviar</button>  
+              <a href="web/index.php/usuarios/inicio" class="btn btn-primary btn-md btn-block" id="centrar" role="button">Atrás</a>
+            </fieldset>
+          </form>        
+        </div>
+      </div>
+    </div>         
+
+    <script src="libs/jquery/jquery-1.11.1.min.js"></script>
+    <script src="libs/knockout/knockout-3.2.0.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/bootstrapgrowl/bootstrap-growl.min.js"></script>  
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+      var viewModel = {
+        view: {
+          submit: function(){
+            var mensaje = ko.toJS(viewModel.model);
+            $.ajax({
+              url: "index.php/contactenos",
+              type: "POST",
+              data: mensaje,
+              success: function(data){
+                $.growl('El mensaje se envio correctamente', {
+                type: 'success',
+                mouse_over: 'pause'
+                });
+              }
+            });
+          }  
+        },
+        model: {
+          mensaje: ko.observable()
+        }
+      };
+
+      ko.applyBindings(viewModel);
+    </script>
+  </body>
+</html>

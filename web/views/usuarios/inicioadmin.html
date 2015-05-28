@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+ <html> 
+  <head>
+    <base href="http://localhost/project/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Página principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap -->
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="libs/bootstrap/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">  
+
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="web/index.php/usuarios/inicioadmin">W-Virtual</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">             
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Conectado<b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="web/index.php"><i class="fa fa-power-off"></i>   Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>  
+
+    <p></br></p>
+
+    <div class="container" id="texto">
+      <div class="row">
+        <div class="col-md-3">
+          <ul class="nav nav-pills nav-stacked admin-menu">
+              <li class="input-md active"><a href="web/index.php/usuarios/inicio" data-target-id="home"><i class="fa fa-home fa-fw"></i>Home</a></li>
+              <li class="input-md"><a href="web/index.php/salas" data-target-id="table"><i class="fa fa-table fa-fw"></i>Administrar salas</a></li>
+              <li class="input-md"><a href="web/index.php/equipos" data-target-id="table"><i class="fa fa-table fa-fw"></i>Administrar equipos</a></li>
+              <li class="input-md"><a href="web/index.php/usuarios" data-target-id="table"><i class="fa fa-table fa-fw"></i>Ver usuarios</a></li>
+              <li class="input-md"><a href="web/index.php/reservas" data-target-id="table"><i class="fa fa-table fa-fw"></i>Ver reservas</a></li> 
+          </ul>
+        </div>
+
+        <div class="col-md-9 admin-content" id="home">
+          <p></br></p>
+            <img src="img/select.png">
+        </div>
+      </div>
+    </div>
+
+    <script src="libs/jquery/jquery-1.11.1.min.js"></script>
+    <script src="libs/knockout/knockout-3.2.0.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>   
+  </body>
+</html>
+

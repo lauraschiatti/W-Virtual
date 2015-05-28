@@ -1,0 +1,2 @@
+{"id":"2","serial":"125","fecha":"2014-11-14","hora":"10:00:00","usuario":"lauricdd@gmail.com"}
+125 10:00:00 2014-11-14
